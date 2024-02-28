@@ -13,7 +13,7 @@ sidebar <- dashboardSidebar(
     
     menuItem(text = "Welcome", tabName = "welcome", icon = icon("star")),
     menuItem(text = "Index", tabName = "index", icon = icon("map")),
-    menuItem(text = "Dashboard", tabName = "dashboard", icon = icon("school"))
+    menuItem(text = HTML("Explore Your Hazards"), tabName = "hazards", icon = icon("school"))
     
   )#END sidebarMENU
   
@@ -52,7 +52,7 @@ body <- dashboardBody(
     ),#END of Index tabItem
     
     # Dashboard tabItem ----
-    tabItem(tabName = "dashboard",
+    tabItem(tabName = "hazards",
             
             # Fluidrow ----
             fluidRow(
@@ -72,7 +72,7 @@ body <- dashboardBody(
                     tabPanel("Extreme Precipitation"),
                     tabPanel("Wildfire"),
                     tabPanel("Flooding"),
-                    tabPanel("Coastal Inundation")
+                    tabPanel("Sea Level Rise")
                     
                     
                   )#END of tabsetPanel
