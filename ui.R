@@ -11,9 +11,9 @@ sidebar <- dashboardSidebar(
   # sidebarMenu ----
   sidebarMenu(
     
-    menuItem(text = "Welcome", tabName = "welcome", icon = icon("star")),
-    menuItem(text = "Index", tabName = "index", icon = icon("map")),
-    menuItem(text = HTML("Explore Your Hazards"), tabName = "hazards", icon = icon("school"))
+    menuItem(text = h4("Welcome"), tabName = "welcome", icon = icon("star")),
+    menuItem(text = h4("Index"), tabName = "index", icon = icon("map")),
+    menuItem(text = h4(HTML("Explore Your Hazards")), tabName = "hazards", icon = icon("school"))
     
   )#END sidebarMENU
   
@@ -58,32 +58,32 @@ body <- dashboardBody(
             fluidRow(
               # input box
               box(
-                width = 10,
+                width = 12,
                 
-                title = tags$strong("Santa Paula Unified School district"),
-                
-                "In 2017, Santa Paula Unified School District had a total of
-                  139 closed school days due to Natural Disasters and Weather.",
+                title = h2(tags$strong("Santa Paula Unified School district")),
                 
                 
                 mainPanel(
                   tabsetPanel(
-                    tabPanel("Extreme Heat"),
-                    tabPanel("Extreme Precipitation"),
-                    tabPanel("Wildfire"),
-                    tabPanel("Flooding"),
-                    tabPanel("Sea Level Rise")
+                    tabPanel(h4("Extreme Heat")),
+                    tabPanel(h4("Extreme Precipitation")),
+                    tabPanel(h4("Wildfire")),
+                    tabPanel(h4("Flooding")),
+                    tabPanel(h4("Sea Level Rise"))
                     
                     
                   )#END of tabsetPanel
                 ),#END mainPanel
                 
+                
                 box(
                   width = 10,
-                  style = "margin-bottom:1000px"
+                  style = "margin-bottom:1000px",
                   
+                 
+
                 )
-                
+
                 
                 
                 
@@ -91,16 +91,15 @@ body <- dashboardBody(
                 
                 
               )#End input box
+              
             )#END Fluidrow
             
-            
-    )
     
   )#END of tabItems
   
   
 ) #END dashboard Body
-
+)
 
 # -------- Combine all in dashboardPage----------------
 dashboardPage(header, sidebar, body, skin = "yellow")
