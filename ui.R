@@ -13,7 +13,8 @@ sidebar <- dashboardSidebar(
     
     menuItem(text = h4("Welcome"), tabName = "welcome", icon = icon("star")),
     menuItem(text = h4("Index"), tabName = "index", icon = icon("map")),
-    menuItem(text = h4(HTML("Explore Your Hazards")), tabName = "hazards", icon = icon("school"))
+    menuItem(text = h4(HTML("Explore Your Hazards")), tabName = "hazards", icon = icon("school")),
+    menuItem(text = h4("User guide"), tabName = "guide", icon = icon("users"))
     
   )#END sidebarMENU
   
