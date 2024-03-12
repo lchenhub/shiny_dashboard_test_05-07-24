@@ -10,6 +10,10 @@ To help schools and communities understand their climate risks, we will create a
 - Authors
 - Licence
 ### Usage
+## Climate Risk Score
+## Explore Your Hazards
+## User Guide
+## Resources
 ### Libraries and Packages
 ### Authors 
 ### Licence
