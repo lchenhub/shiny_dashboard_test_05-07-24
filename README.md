@@ -10,7 +10,7 @@ To help schools and communities understand their climate risks, we will create a
 - [Authors](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#authors)
 
 ### Usage
-## Climate Risk Score
+## Aggregated Hazard Risk
 ## Explore Your Hazards
 
 This tab features our five interactive climate hazard visualizations:
