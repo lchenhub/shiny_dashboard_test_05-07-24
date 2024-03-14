@@ -8,15 +8,24 @@ To help schools and communities understand their climate risks, we will create a
 - [Usage](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#usage)
 - [Libraries and Packages](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#libraries-and-packages)
 - [Authors](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#authors)
-- [Licence](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#licence)
-- [Acknowlegments](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#acknowlegments)
+
 ### Usage
 ## Climate Risk Score
 ## Explore Your Hazards
+
+This tab features our five interactive climate hazard visualizations:
+- **Extreme Heat**
+- **Extreme Precipitation**
+- **Wildfire**
+- **Flooding**
+- **Seal-level Rise**
+
+Users can click on each tab at the top of the webpage to explore the risks associated with each climate hazard relative to their location. Users will be able to input their address in a search bar to get the information most relevant to them.
 ## User Guide
 ## Resources
+
+Under this tab, users will be given links to additional resources to protect themselves and their communities against climate hazards, as well as short write-ups that provide more information on how to engage their community to address climate change.
 ### Libraries and Packages
 ### Authors 
 The authors of this dashboard are [Liane Chen](https://github.com/lchenhub), [Charlie Curtin](https://github.com/charliecurtin1), [Kristina Glass](https://github.com/kristinaglass), and [Hazel Vaquero](https://github.com/hazelvaq). For any comments or questions about this dashboard, please reach out to @cp-casaschools@bren.ucsb.edu
-### Acknowledgments
-### Licence
+
