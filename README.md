@@ -8,6 +8,7 @@ To help schools and communities understand their climate risks, we will create a
 - [Usage](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#usage)
 - [Libraries and Packages](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#libraries-and-packages)
 - [Authors](https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#authors)
+- [License]((https://github.com/CASAschools/shiny_dashboard/blob/main/README.md#license)
 
 ### Usage
 ## Aggregated Hazard Risk
@@ -28,4 +29,7 @@ Under this tab, users will be given links to additional resources to protect the
 ### Libraries and Packages
 ### Authors 
 The authors of this dashboard are [Liane Chen](https://github.com/lchenhub), [Charlie Curtin](https://github.com/charliecurtin1), [Kristina Glass](https://github.com/kristinaglass), and [Hazel Vaquero](https://github.com/hazelvaq). For any comments or questions about this dashboard, please reach out to @cp-casaschools@bren.ucsb.edu
+
+### License
+
 
