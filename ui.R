@@ -63,29 +63,50 @@ body <- dashboardBody(
                 
                 title = h2(tags$strong("Santa Paula Unified School district")),
                 
-                
-                mainPanel(
                   tabsetPanel(
-                    tabPanel(h4("Extreme Heat")),
+                    tabPanel(h4("Extreme Heat"),
+                             
+                             # Extreme Heat Plot
+                             fluidRow(
+                               tags$style(".nav-tabs-custom {box-shadow:none;}
+                                          "),
+                               
+                               # extreme heat plot ---
+                               box(width = 6,
+                                   style = "border: none; border-width:0,",
+                                   plotOutput('hazard_plot')
+                                   
+                               ), #END extreme heat plot
+                               
+                               # Text on the right of graph description ---
+                               column(width = 6,
+                                      
+                                      box(
+                                        width = NULL,
+                                        style = "border: none; border-width:0;",
+                                        h3("What does this graph tell us?"),
+                                        p("The Santa Paula Unified School District
+                                          will see an increase in extreme heat days 
+                                          in the upcoming years."),
+                                        h3("How is extreme heat measured?"),
+                                        p("Extreme heat is measured as days 
+                                          where the daily maximum temperature is
+                                          above the 98th percentile of observed 
+                                          historical temperatures"),
+                                        h3("Source:")
+                                      )
+                                      
+                                      )
+                             )
+                             
+                             ),
                     tabPanel(h4("Extreme Precipitation")),
                     tabPanel(h4("Wildfire")),
                     tabPanel(h4("Flooding")),
                     tabPanel(h4("Sea Level Rise"))
                     
                     
-                  )#END of tabsetPanel
-                ),#END mainPanel
-                
-                
-                box(
-                  width = 10,
-                  style = "margin-bottom:1000px",
-                  
-                 
-
-                )
-
-                
+                  ),#END of tabsetPanel
                 
                 
                 
