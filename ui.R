@@ -21,9 +21,14 @@ sidebar <- dashboardSidebar(
   
 )#END dashboard Sidebar
   
+# -------- leaflet map-----------------------------
+
 
 # -------- dashboard Body-----------------------------
 body <- dashboardBody(
+  
+  #leaflet map ---
+  leafletOutput("map"),
   
   #tabItems ----
   tabItems(
@@ -124,4 +129,4 @@ body <- dashboardBody(
 )
 
 # -------- Combine all in dashboardPage----------------
-dashboardPage(header, sidebar, body, skin = "yellow")
+dashboardPage(header, sidebar, body,skin = "yellow")
