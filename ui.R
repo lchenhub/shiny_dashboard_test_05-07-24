@@ -14,6 +14,7 @@ sidebar <- dashboardSidebar(
     menuItem(text = h4("Welcome"), tabName = "welcome", icon = icon("star")),
     menuItem(text = h4("Index"), tabName = "index", icon = icon("map")),
     menuItem(text = h4(HTML("Explore Your Hazards")), tabName = "hazards", icon = icon("school")),
+    menuItem(text = h4("Adaptation"), tabName = "guide", icon = icon("person")),
     menuItem(text = h4("User guide"), tabName = "guide", icon = icon("users"))
     
   )#END sidebarMENU
@@ -27,24 +28,25 @@ sidebar <- dashboardSidebar(
 # -------- dashboard Body-----------------------------
 body <- dashboardBody(
   
-  #leaflet map ---
-  leafletOutput("map"),
-  
   #tabItems ----
   tabItems(
     
     tabItem(tabName = "welcome",
             
             # left hand column
-            column(width = 10,
+            column(width = 12,
                    
                    # background info box
                    box(width = NULL,
                        
-                       title = tags$strong("About")
+                       title = tags$strong("Welcome"),
                        
-                   )# END background info box
-                   
+                       "CASAschool Interactive Dashboard.",
+                       
+                       
+                   ),# END background info box
+                   #leaflet map ---
+                   leafletOutput("map")
             ) #END left-hand column
     ),#END welcome tabItem
     
