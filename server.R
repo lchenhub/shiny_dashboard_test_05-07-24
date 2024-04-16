@@ -9,16 +9,18 @@ server <- function(input, output){
   })
 
   
-}
+
 
 # build leaflet map
 
-function(input, output, session) {
+
   output$map <- renderLeaflet({
     leaflet() %>% 
       addTiles() %>%
       setView(lng = -122.4194, lat = 37.7749, zoom = 10) %>%
-      addProviderTiles("Stamen.Toner") %>% 
-      leaflet.extras::addSearchOSM(options = searchOptions(collapsed = TRUE))
+      addPolygons(data = ca_boundary) %>% 
+      #addMarkers(data = school_points) %>% 
+      addProviderTiles("OpenStreetMap") %>% 
+      leaflet.extras::addSearchOSM(options = searchOptions(collapsed = FALSE))
   })
-}
+} 
