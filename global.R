@@ -11,12 +11,13 @@ library(leaflet.minicharts)
 library(sf)
 library(countrycode)
 
-
-ca_boundary <- st_read("/capstone/casaschools/schools_data/CA_boundary/CA_boundary.shp")
-
-ca_boundary <- st_make_valid(ca_boundary)
-ca_boundary <- st_transform(ca_boundary, crs = "EPSG:4326" )
-
+# ----------------------- CA school points -------------------------------
+#Load in data
 school_points <-  st_read("/capstone/casaschools/schools_data/California_Schools_2022-23/California_Schools_2022-23.shp")
+# Transform CRS
 school_points <- st_transform(school_points, crs = "EPSG:4326" )
+# Drop geometry
 school_points_rm <- school_points %>% st_drop_geometry()
+
+# Calmatters Load In
+calmatters <- read_csv("/capstone/casaschools/shiny_dashboard/data/calmatters/disasterDays.csv")
