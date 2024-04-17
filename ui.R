@@ -25,24 +25,34 @@ sidebar <- dashboardSidebar(
 
 # -------- dashboard Body-----------------------------
 body <- dashboardBody(
+  
+
+# ---------- Welcome tab -----------------------------    
   tabItems(
     tabItem(tabName = "welcome",
-      column(width = 12,
+    fluidPage(
         box(width = NULL,
           title = h3(tags$strong("Welcome!")),
-          #includeMarkdown("text/about.md")
-          "Filler"
-        ),
-        leafletOutput("map")
+          includeMarkdown("text/about_text.md"),
+          h3(tags$strong("Getting Started")),
+          leafletOutput("map")
       )
-    ),
-    tabItem(tabName = "index",
+    )
+  ),
+
+    
+    
+# --------- Index tab --------------------------------   
+  tabItem(tabName = "index",
       # Content for the index tab
     ),
-    tabItem(tabName = "hazards",
-      fluidRow(
+
+
+# ---------- Hazards tab -----------------------------
+  tabItem(tabName = "hazards",
+      fluidPage(
         box(
-          width = 12,
+          width = NULL,
           title = h2(tags$strong("Santa Paula Unified School district")),
           tabsetPanel(
             tabPanel(h4("Extreme Heat"),
@@ -56,11 +66,8 @@ body <- dashboardBody(
                   box(
                     width = NULL,
                     style = "border: none; border-width:0;",
-                    h3("What does this graph tell us?"),
-                    p("The Santa Paula Unified School District will see an increase in extreme heat days in the upcoming years."),
-                    h3("How is extreme heat measured?"),
-                    p("Extreme heat is measured as days where the daily maximum temperature is above the 98th percentile of observed historical temperatures"),
-                    h3("Source:")
+                    includeMarkdown("text/heat.md")
+                    
                   )
                 )
               )
@@ -73,16 +80,21 @@ body <- dashboardBody(
         )
       )
     ),
-    tabItem(tabName = "socio",
+
+# ------- Socioeconomic tab ---------------------
+  tabItem(tabName = "socio",
       fluidRow(
         box(width = 8,
           # Content for the socioeconomic tab
         )
       )
-    )
-  )
-)
+    ),
+# ------- User guide tab -----------------------
+  tabItem(tabName = "guide",
+          )
 
+)
+)
 
 # -------- Combine all in dashboardPage----------------
 dashboardPage(header, sidebar, body,skin = "yellow")
