@@ -18,7 +18,6 @@ server <- function(input, output){
     leaflet() %>% 
       addTiles() %>%
       setView(lng = -122.4194, lat = 37.7749, zoom = 10) %>%
-      addPolygons(data = ca_boundary) %>% 
       #addMarkers(data = school_points) %>% 
       addProviderTiles("OpenStreetMap") %>% 
       leaflet.extras::addSearchOSM(options = searchOptions(collapsed = FALSE))

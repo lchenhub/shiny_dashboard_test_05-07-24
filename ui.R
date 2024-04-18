@@ -5,12 +5,10 @@ header <- dashboardHeader(
   titleWidth = 400
 ) #END dashboardHeader
 
-
 # -------- dashboard Sidebar--------------------------
 sidebar <- dashboardSidebar(
   # sidebarMenu ----
   sidebarMenu(
-    
     menuItem(text = h4("Welcome"), tabName = "welcome", icon = icon("star")),
     menuItem(text = h4("Index"), tabName = "index", icon = icon("map")),
     menuItem(text = h4(HTML("Explore Your Hazards")), tabName = "hazards", icon = icon("school")),
