@@ -87,7 +87,7 @@ body <- dashboardBody(
     tabItem(tabName = "socio",
             fluidPage(
               box(width = NULL,
-                  # Content for the socioeconomic tab
+                  includeMarkdown("text/socio.md"),
               )
             )#END FLUIDPAGE
     ),#END SOCIOECONOMIC TAB
