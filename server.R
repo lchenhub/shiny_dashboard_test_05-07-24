@@ -1,11 +1,26 @@
 server <- function(input, output){
   
-  # Hazards plot
+#------------------- Hazards plot ---------------------------------------------
+  
+#--------------------Extreme Heat ---------------------------------------------
+  
   output$hazard_plot <- renderPlot({
     ggplot(na.omit(penguins),
            aes(x = flipper_length_mm, y = bill_length_mm,
                color = species, shape = species)) +
       geom_point()
+    
+    
+#--------------------Extreme Precipitation-------------------------------------
+    
+    
+#---------------------Wildfire--------------------------------------------------
+    
+
+#---------------------Flooding--------------------------------------------------
+    
+#---------------------Coastal Flooding------------------------------------------
+    
   })
 
   
@@ -19,7 +34,6 @@ server <- function(input, output){
       addTiles() %>%
       setView(lng = -122.4194, lat = 37.7749, zoom = 10) %>%
       #addMarkers(data = school_points) %>% 
-      addProviderTiles("OpenStreetMap") %>% 
-      leaflet.extras::addSearchOSM(options = searchOptions(collapsed = FALSE))
+      addProviderTiles("OpenStreetMap")
   })
 } 
