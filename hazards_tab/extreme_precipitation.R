@@ -4,16 +4,15 @@ fluidRow(
     width = 6,
     
     # Plot here
-    
-    #plotOutput('hazard_plot')
+    plotOutput('precip')
   ),
   column(
     width = 6,
     box(
-      width = NULL
+      width = NULL,
       
-      # Text here
-      #includeMarkdown("text/heat.md")
+      # Load in text 
+      includeMarkdown("text/precipitation.md")
       
     )
   )

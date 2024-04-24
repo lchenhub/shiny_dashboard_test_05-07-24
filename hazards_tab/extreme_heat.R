@@ -3,7 +3,7 @@ fluidRow(
   box(
     width = 6,
     style = "border: none; border-width:0;",
-    plotOutput('hazard_plot')
+    plotOutput('extreme_heat')
   ),
   column(
     width = 6,

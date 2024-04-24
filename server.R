@@ -4,25 +4,43 @@ server <- function(input, output){
   
 #--------------------Extreme Heat ---------------------------------------------
   
-  output$hazard_plot <- renderPlot({
-    ggplot(na.omit(penguins),
-           aes(x = flipper_length_mm, y = bill_length_mm,
-               color = species, shape = species)) +
-      geom_point()
-    
+  output$extreme_heat <- renderPlot({
+    source("servers_hazards/extreme_heat.R",
+           local = TRUE,
+           echo = FALSE, 
+           print.eval = FALSE)[1]})
     
 #--------------------Extreme Precipitation-------------------------------------
-    
+
+  output$precip <- renderPlot({
+    source("servers_hazards/extreme_precipitation.R",
+           local = TRUE,
+           echo = FALSE, 
+           print.eval = FALSE)[1]})  
+  
     
 #---------------------Wildfire--------------------------------------------------
     
+  output$wildfire <- renderPlot({
+    source("servers_hazards/wildfire.R",
+           local = TRUE,
+           echo = FALSE, 
+           print.eval = FALSE)[1]})  
 
 #---------------------Flooding--------------------------------------------------
     
+  output$flooding <- renderPlot({
+    source("servers_hazards/flooding.R",
+           local = TRUE,
+           echo = FALSE, 
+           print.eval = FALSE)[1]})  
 #---------------------Coastal Flooding------------------------------------------
     
-  })
-
+  output$coastal <- renderPlot({
+    source("servers_hazards/coastal_inundation.R",
+           local = TRUE,
+           echo = FALSE, 
+           print.eval = FALSE)[1]})  
   
 
 
@@ -36,4 +54,6 @@ server <- function(input, output){
       #addMarkers(data = school_points) %>% 
       addProviderTiles("OpenStreetMap")
   })
-} 
+  
+}
+ 

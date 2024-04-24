@@ -55,7 +55,7 @@ body <- dashboardBody(
                 tabsetPanel(
                   tabPanel(h4("Extreme Heat"),
                            # Load extreme heat script
-                           source("hazards/extreme_heat.R",
+                           source("hazards_tab/extreme_heat.R",
                                   # Remove TRUE output
                                   local = TRUE, 
                                   echo = FALSE, 
@@ -66,7 +66,7 @@ body <- dashboardBody(
 
                   tabPanel(h4("Extreme Precipitation"),
                            # Load extreme precipitation script
-                           source("hazards/extreme_precipitation.R", local = TRUE,
+                           source("hazards_tab/extreme_precipitation.R", local = TRUE,
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
                            
@@ -74,7 +74,7 @@ body <- dashboardBody(
                            ),#END EXTREME PRECIPITATION
                   tabPanel(h4("Wildfire"),
                            # Load wildfire script
-                           source("hazards/wildfire.R", local = TRUE,
+                           source("hazards_tab/wildfire.R", local = TRUE,
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
                            
@@ -82,15 +82,14 @@ body <- dashboardBody(
                            ),#END WILDFIRE
                   tabPanel(h4("Flooding"),
                            # Load flooding script
-                           source("hazards/flooding.R", local = TRUE,
+                           source("hazards_tab/flooding.R", local = TRUE,
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
-                           
                            
                            ),#END FLOODING
                   tabPanel(h4("Coastal Inundation"),
                            # Load coastal inundation script
-                           source("hazards/coastal_inundation.R", local = TRUE,
+                           source("hazards_tab/coastal_inundation.R", local = TRUE,
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
                            

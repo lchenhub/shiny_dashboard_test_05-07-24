@@ -10,10 +10,10 @@ fluidRow(
   column(
     width = 6,
     box(
-      width = NULL
+      width = NULL,
       
-      # Text here
-      #includeMarkdown("text/heat.md")
+      # Load text in 
+      includeMarkdown("text/wildfire.md")
       
     )
   )
