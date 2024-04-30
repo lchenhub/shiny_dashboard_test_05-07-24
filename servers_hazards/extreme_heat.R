@@ -1,4 +1,11 @@
-ggplot(na.omit(penguins),
-         aes(x = flipper_length_mm, y = bill_length_mm,
-             color = species, shape = species)) +
-    geom_point()
+ggplot(data = extreme_heat1,
+       aes(x = year, y = total, color = scenario)) + 
+  geom_line() +
+  theme_classic() +
+  labs(x = "Year",
+       y = "Number of Extreme Heat Days") + 
+  theme(legend.position = "top",
+        legend.title = element_blank()
+        )
+
+

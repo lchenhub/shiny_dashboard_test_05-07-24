@@ -10,8 +10,8 @@ sidebar <- dashboardSidebar(
   # sidebarMenu ----
   sidebarMenu(
     menuItem(text = h4("Welcome"), tabName = "welcome", icon = icon("star")),
-    menuItem(text = h4("Index"), tabName = "index", icon = icon("map")),
     menuItem(text = h4(HTML("Explore Your Hazards")), tabName = "hazards", icon = icon("school")),
+    menuItem(text = h4("Hazard Summary Metric"), tabName = "index", icon = icon("map")),
     menuItem(text = h4("Adaptation"), tabName = "adapt", icon = icon("person")),
     menuItem(text = h4("User guide"), tabName = "guide", icon = icon("users"))
     
@@ -30,7 +30,7 @@ body <- dashboardBody(
     tabItem(tabName = "welcome",
             fluidPage(
               box(width = NULL,
-                  title = h3(tags$strong("Welcome!")),
+                  title = h3(tags$strong("Welcome to the CASAschools Climate Hazards Dashboard!")),
                   includeMarkdown("text/about_text.md"),
                   h3(tags$strong("Getting Started")),
                   leafletOutput("map")
@@ -38,20 +38,14 @@ body <- dashboardBody(
             )
     ),
     
-    # --------- Index tab --------------------------------   
-    tabItem(tabName = "index",
-            # Content for the index tab
-            fluidPage()#END FLUIDPAGE
-            
-    ),#END INDEX
-    
+
     
     # ---------- Hazards tab -----------------------------
     tabItem(tabName = "hazards",
             fluidPage(
               box(
                 width = NULL,
-                title = h2(tags$strong("Santa Paula Unified School district")),
+                title = h2(tags$strong("Dos Pueblos Senior High")),
                 tabsetPanel(
                   tabPanel(h4("Extreme Heat"),
                            # Load extreme heat script
@@ -102,6 +96,22 @@ body <- dashboardBody(
     )# END Fluid Pages
     
     ),#END HAZARDS TAB
+    
+    
+    # --------- Index tab --------------------------------   
+    tabItem(tabName = "index",
+            # Content for the index tab
+            fluidPage(
+              
+              
+              box(width = NULL,
+                  title = h2(tags$strong("Dos Pueblos Senior High Hazards Summary Metric"))
+              )
+              
+            )#END FLUIDPAGE
+            
+    ),#END INDEX
+    
     
     # ------- Socioeconomic tab ---------------------
     tabItem(tabName = "adapt",
