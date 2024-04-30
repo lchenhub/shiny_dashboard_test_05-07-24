@@ -7,8 +7,10 @@ server <- function(input, output){
   output$extreme_heat <- renderPlot({
     source("servers_hazards/extreme_heat.R",
            local = TRUE,
-           echo = FALSE, 
-           print.eval = FALSE)[1]})
+           echo = FALSE,
+           print.eval = FALSE)[1]
+
+    })
     
 #--------------------Extreme Precipitation-------------------------------------
 

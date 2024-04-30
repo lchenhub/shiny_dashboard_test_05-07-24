@@ -1,6 +1,6 @@
 ### What does this graph tell us?
 <br>
-<span style="font-size:18px;">The Santa Paula Unified School District will see an increase in extreme heat days in the upcoming years.</span>
+<span style="font-size:18px;">The Dos Pueblos Senior High will see an increase in extreme heat days in the upcoming years.</span>
 <br>
 
 ### How is extreme heat measured?
