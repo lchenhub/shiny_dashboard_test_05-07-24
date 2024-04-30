@@ -5,24 +5,11 @@ server <- function(input, output){
 #--------------------Extreme Heat ---------------------------------------------
   
   output$extreme_heat <- renderPlot({
-    p <- ggplot(data = extreme_heat1,
-                aes(x = year, y = total, color = scenario)) + 
-      geom_line() +
-      theme_classic() +
-      labs(x = "Year",
-           y = "Number of Extreme Heat Days") + 
-      theme(legend.position = "top",
-            legend.title = element_blank())
+    source("servers_hazards/extreme_heat.R",
+           local = TRUE,
+           echo = FALSE,
+           print.eval = FALSE)[1]
 
-    p
-  
-    
-    
-    # source("servers_hazards/extreme_heat.R",
-    #        local = TRUE,
-    #        echo = FALSE, 
-    #        print.eval = FALSE)[1]
-    
     })
     
 #--------------------Extreme Precipitation-------------------------------------
