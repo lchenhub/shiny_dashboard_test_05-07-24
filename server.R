@@ -58,6 +58,7 @@ server <- function(input, output){
   # })
   # Reactive output for district based on selected city
   
+  #Here, we will create the output variables that feed into outputs used in the ui.R file
   output$districtMenu <- renderUI({
     req(input$city)
     selectInput("district", "Choose a district:", 
