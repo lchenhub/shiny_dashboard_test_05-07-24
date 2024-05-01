@@ -33,9 +33,16 @@ body <- dashboardBody(
                   title = h3(tags$strong("Welcome to the CASAschools Climate Hazards Dashboard!")),
                   includeMarkdown("text/about_text.md"),
                   h3(tags$strong("Getting Started")),
-                  leafletOutput("map")
+                  sidebarLayout(
+                    sidebarPanel(
+                      selectInput("city", "Choose a city:", choices = unique(school_points$City)),
+                      uiOutput("districtMenu"),
+                      uiOutput("schoolMenu")
+                    ),
+                    mainPanel(
+                      leafletOutput("map")
               )
-            )
+            )))
     ),
     
 

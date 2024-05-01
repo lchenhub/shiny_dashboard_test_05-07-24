@@ -9,3 +9,4 @@
 <span style="font-size:18px;">An extreme precipitation event is measured as a daily rainfall total exceeding 18.657 mm or 0.73 inches. This extreme threshold is found by taking the 98th percentile of the observed historical precipitation events.</span>
 
 Source:
+
