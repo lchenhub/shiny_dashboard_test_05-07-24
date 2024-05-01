@@ -13,7 +13,7 @@ fluidRow(
       width = NULL,
       
       # Load text in 
-      includeMarkdown("text/wildfire.md")
+      includeMarkdown("text/summary.md")
       
     )
   )
