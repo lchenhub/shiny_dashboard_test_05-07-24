@@ -1,11 +1,15 @@
 server <- function(input, output){
   
-#------------------- Hazards plot ---------------------------------------------
-
+  #------------------- Hazards plot ---------------------------------------------
+  
+  # source script that filters the hazard scores dataframe and creates a plot
+  source("servers_hazards_plotting/hazard_summary_test.R")
+  
+  # output hazard summary plot
   output$hazard_summary <- renderPlot({
-    source("servers_hazards_plotting/hazard_summary.R",
-           local = TRUE,
-           echo = FALSE, print.eval = FALSE)[1]})
+    filtered_data <- school_filtered(sb_hazards_test, input$school_input)
+    generate_hazard_summary_plot(filtered_data)
+  })
   
 #--------------------Extreme Heat ---------------------------------------------
   
