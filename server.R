@@ -1,6 +1,11 @@
 server <- function(input, output){
   
 #------------------- Hazards plot ---------------------------------------------
+
+  output$hazard_summary <- renderPlot({
+    source("servers_hazards_plotting/hazard_summary.R",
+           local = TRUE,
+           echo = FALSE, print.eval = FALSE)[1]})
   
 #--------------------Extreme Heat ---------------------------------------------
   
