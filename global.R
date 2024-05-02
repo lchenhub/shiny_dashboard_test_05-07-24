@@ -11,6 +11,8 @@ library(leaflet.minicharts)
 library(sf)
 library(countrycode) 
 library(plotly)
+library(terra)
+library(colorspace)
 
 
 # make sure the full cdscode can be seen
@@ -36,3 +38,10 @@ extreme_heat <- read_csv("/capstone/casaschools/shiny_dashboard/data/extreme_hea
 
 extreme_heat1 <- extreme_heat %>%
   filter(CDSCode == 42767864231726)
+
+# ----------------------- Hazard summary data -------------------------------
+sb_hazards_test <- read_csv("/capstone/casaschools/hazard_summary/testing/sb_hazards_test.csv")
+
+
+
+
