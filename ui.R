@@ -37,7 +37,12 @@ body <- dashboardBody(
                     sidebarPanel(
                       selectInput("city", "Choose a city:", choices = unique(school_points$City)),
                       uiOutput("districtMenu"),
-                      uiOutput("schoolMenu")
+                      uiOutput("schoolMenu"),
+                      pickerInput(inputId = "school_input",
+                                  label = "Select school",
+                                  choices = unique(sb_hazards_test$SchoolName),
+                                  options = pickerOptions(actionsBox = TRUE),
+                                  multiple = FALSE)  # School picker here
                     ),
                     mainPanel(
                       leafletOutput("map")
@@ -45,26 +50,39 @@ body <- dashboardBody(
             )))
     ),
     
-
     
     # ---------- Hazards tab -----------------------------
     tabItem(tabName = "hazards",
             fluidPage(
               box(
                 width = NULL,
-                title = h2(tags$strong("Dos Pueblos Senior High")),
+                title = div(style = "display: flex; align-items: center; justify-content: space-between;",
+                            
+                            # school name
+                            uiOutput("school_name"),
+                            box(width = NULL,
+                                pickerInput(inputId = "school_input",
+                                            label = "Select school",
+                                            choices = unique(sb_hazards_test$SchoolName),
+                                            options = pickerOptions(actionsBox = TRUE),
+                                            multiple = FALSE)
+                            )
+                ), # END TITLE AND PICKER INPUT
+                
                 tabsetPanel(
+                  
+                  # START EXTREME HEAT TAB
                   tabPanel(h4("Extreme Heat"),
                            # Load extreme heat script
                            source("hazards_tab/extreme_heat.R",
-                                  # Remove TRUE output
                                   local = TRUE, 
                                   echo = FALSE, 
                                   print.eval = FALSE)[1]
                            
                            
-                           ),#END Extreme Heat
-
+                  ), # END Extreme Heat
+                  
+                  # START EXTREME PRECIPITATION TAB
                   tabPanel(h4("Extreme Precipitation"),
                            # Load extreme precipitation script
                            source("hazards_tab/extreme_precipitation.R", 
@@ -73,7 +91,9 @@ body <- dashboardBody(
                                   print.eval = FALSE)[1]
                            
                            
-                           ),#END EXTREME PRECIPITATION
+                  ), # END EXTREME PRECIPITATION
+                  
+                  # START WILDFIRE TAB
                   
                   tabPanel(h4("Wildfire"),
                            # Load wildfire script
@@ -83,7 +103,9 @@ body <- dashboardBody(
                                   print.eval = FALSE)[1]
                            
                            
-                           ),#END WILDFIRE
+                  ), # END WILDFIRE
+                  
+                  # START FLOODING TAB
                   
                   tabPanel(h4("Flooding"),
                            # Load flooding script
@@ -92,8 +114,9 @@ body <- dashboardBody(
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
                            
-                           ),#END FLOODING
+                  ), # END FLOODING
                   
+                  # START COASTAL INUNDATION TAB
                   tabPanel(h4("Coastal Inundation"),
                            # Load coastal inundation script
                            source("hazards_tab/coastal_inundation.R", 
@@ -101,7 +124,9 @@ body <- dashboardBody(
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
                            
-                           ),#END COASTAL INUNDATION
+                  ), # END COASTAL INUNDATION
+                  
+                  # START HAZARD SUMMARY TAB
                   
                   tabPanel(h4("Hazard Summary"),
                            #load hazard summary script
@@ -110,15 +135,15 @@ body <- dashboardBody(
                                   echo = FALSE,
                                   print.eval = FALSE)[1]
                            
-                           )#END HAZARD SUMMARY
+                  ) # END HAZARD SUMMARY
+                  
+                ) # END Tabset Panel
                 
-              )#END Tabset Panel
+              ) # END Box
               
-            )#END Box
-    
-    )# END Fluid Pages
-    
-    ),#END HAZARDS TAB
+            ) # END Fluid Pages
+            
+    ), # END HAZARDS TAB
     
     
     # --------- Index tab --------------------------------   

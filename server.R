@@ -1,74 +1,97 @@
 server <- function(input, output){
   
-  #------------------- Hazards plot ---------------------------------------------
+  #-------------------Reactive school filtering--------------------------------
+  
+  # Function to filter data based on selected school
+  school_filtered <- function(data, input_school) {
+    data %>%
+      filter(SchoolName %in% c(input_school)) %>%
+      pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
+                   names_to = "variable", values_to = "value")
+  }
+  
+  filtered_data <- reactive({
+    school_filtered(sb_hazards_test, input$school_input)
+  })
+  
+  # Update hazards tab title based on the selected school
+  output$school_name <- renderUI({
+    # Ensure there is a selection to avoid errors
+    if (!is.null(input$school_input) && input$school_input != "") {
+      h2(tags$strong(input$school_input))
+    } else {
+      h2(tags$strong("Select a school"))
+    }
+  })
+  
+  #-------------------Hazards plot---------------------------------------------
   
   # source script that filters the hazard scores dataframe and creates a plot
   source("servers_hazards_plotting/hazard_summary_test.R")
   
   # output hazard summary plot
   output$hazard_summary <- renderPlot({
-    filtered_data <- school_filtered(sb_hazards_test, input$school_input)
-    generate_hazard_summary_plot(filtered_data)
+    generate_hazard_summary_plot(filtered_data())
   })
   
-#--------------------Extreme Heat ---------------------------------------------
+  #--------------------Extreme Heat ---------------------------------------------
   
   output$extreme_heat <- renderPlotly({
     # Develop plot 
     heat <- ggplot(data = extreme_heat1,
-                aes(x = year, y = total, color = scenario)) +
+                   aes(x = year, y = total, color = scenario)) +
       geom_line() +
       theme_classic() +
       labs(x = "Year",
            y = "Number of Extreme Heat Days") +
       theme(legend.position = "top",
             legend.title = element_blank())
-
-      ggplotly(heat) %>%
-        layout(legend = list(orientation = "h", y = 1.1,
-                             title = list(text = 'Scenarios')),
-               margin = list( t = 60))
-
-    })
-
+    
+    ggplotly(heat) %>%
+      layout(legend = list(orientation = "h", y = 1.1,
+                           title = list(text = 'Scenarios')),
+             margin = list( t = 60))
+    
+  })
   
-#--------------------Extreme Precipitation-------------------------------------
-
+  
+  #--------------------Extreme Precipitation-------------------------------------
+  
   output$precip <- renderPlot({
     source("servers_hazards_plotting/extreme_precipitation.R",
            local = TRUE,
            echo = FALSE, 
            print.eval = FALSE)[1]})  
   
-    
-#---------------------Wildfire--------------------------------------------------
-    
+  
+  #---------------------Wildfire--------------------------------------------------
+  
   output$wildfire <- renderPlot({
     source("servers_hazards_plotting/wildfire.R",
            local = TRUE,
            echo = FALSE, 
            print.eval = FALSE)[1]})  
-
-#---------------------Flooding--------------------------------------------------
-    
+  
+  #---------------------Flooding--------------------------------------------------
+  
   output$flooding <- renderPlot({
     source("servers_hazards_plotting/flooding.R",
            local = TRUE,
            echo = FALSE, 
            print.eval = FALSE)[1]})  
-#---------------------Coastal Flooding------------------------------------------
-    
+  #---------------------Coastal Flooding------------------------------------------
+  
   output$coastal <- renderPlot({
     source("servers_hazards_plotting/coastal_inundation.R",
            local = TRUE,
            echo = FALSE, 
            print.eval = FALSE)[1]})  
   
-
-
-# build leaflet map
-
-
+  
+  
+  # build leaflet map
+  
+  
   # output$map <- renderLeaflet({
   #   leaflet() %>% 
   #     addTiles() %>%

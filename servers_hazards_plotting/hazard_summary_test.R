@@ -1,12 +1,4 @@
 
-# school filtering, reactive to t
-school_filtered <- function(data, input_school) {
-  data %>%
-    filter(SchoolName %in% c(input_school)) %>%
-    pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
-                 names_to = "variable", values_to = "value")
-}
-
 # generate hazard summary plot
 generate_hazard_summary_plot <- function(filtered_data) {
   ggplot(filtered_data, aes(y = variable, x = value)) +
