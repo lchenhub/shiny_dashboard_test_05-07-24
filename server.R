@@ -23,7 +23,7 @@ server <- function(input, output){
       h2(tags$strong("Select a school"))
     }
   })
-  
+
   #-------------------Hazards plot---------------------------------------------
   
   # source script that filters the hazard scores dataframe and creates a plot

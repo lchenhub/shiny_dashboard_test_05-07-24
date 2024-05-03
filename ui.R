@@ -38,11 +38,12 @@ body <- dashboardBody(
                       selectInput("city", "Choose a city:", choices = unique(school_points$City)),
                       uiOutput("districtMenu"),
                       uiOutput("schoolMenu"),
+                      # school picker on welcome page, note the different inputId than the school picker in the hazards tab
                       pickerInput(inputId = "school_input",
                                   label = "Select school",
                                   choices = unique(sb_hazards_test$SchoolName),
                                   options = pickerOptions(actionsBox = TRUE),
-                                  multiple = FALSE)  # School picker here
+                                  multiple = FALSE) 
                     ),
                     mainPanel(
                       leafletOutput("map")
@@ -60,6 +61,8 @@ body <- dashboardBody(
                             
                             # school name
                             uiOutput("school_name"),
+                            
+                            # school picker for the hazards tab, note the different inputId than the school picker in the welcome
                             box(width = NULL,
                                 pickerInput(inputId = "school_input",
                                             label = "Select school",
@@ -72,6 +75,7 @@ body <- dashboardBody(
                 tabsetPanel(
                   
                   # START EXTREME HEAT TAB
+                  
                   tabPanel(h4("Extreme Heat"),
                            # Load extreme heat script
                            source("hazards_tab/extreme_heat.R",
@@ -83,6 +87,7 @@ body <- dashboardBody(
                   ), # END Extreme Heat
                   
                   # START EXTREME PRECIPITATION TAB
+                  
                   tabPanel(h4("Extreme Precipitation"),
                            # Load extreme precipitation script
                            source("hazards_tab/extreme_precipitation.R", 
@@ -117,6 +122,7 @@ body <- dashboardBody(
                   ), # END FLOODING
                   
                   # START COASTAL INUNDATION TAB
+                  
                   tabPanel(h4("Coastal Inundation"),
                            # Load coastal inundation script
                            source("hazards_tab/coastal_inundation.R", 
