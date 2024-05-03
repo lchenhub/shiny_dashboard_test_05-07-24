@@ -19,6 +19,8 @@ generate_hazard_summary_plot <- function(filtered_data) {
                color = "black",
                alpha = .9) +
     geom_text(aes(label = value), vjust = 0.5, hjust = 0.5, color = "black", size = 4) +
+    # make sure x-axis draws to 5
+    scale_x_continuous(limits = c(0, 5)) +
     scale_fill_gradientn(colors = green_red,
                          limits = c(1,5),
                          breaks = c(1:5)) +
