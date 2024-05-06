@@ -8,7 +8,7 @@ fluidRow(
     plotOutput(outputId = "hazard_summary")
   ),
   
-  # text column
+  # column for text
   column(
     width = 6,
     box(

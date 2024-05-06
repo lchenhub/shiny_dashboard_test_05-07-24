@@ -1,19 +1,7 @@
 server <- function(input, output){
   
   #-------------------Reactive school filtering--------------------------------
-  
-  # Function to filter data based on selected school
-  school_filtered <- function(data, input_school) {
-    data %>%
-      filter(SchoolName %in% c(input_school)) %>%
-      pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
-                   names_to = "variable", values_to = "value")
-  }
-  
-  filtered_data <- reactive({
-    school_filtered(sb_hazards_test, input$school_input)
-  })
-  
+ 
   # Update hazards tab title based on the selected school
   output$school_name <- renderUI({
     # Ensure there is a selection to avoid errors
@@ -28,6 +16,19 @@ server <- function(input, output){
   
   # source script that filters the hazard scores dataframe and creates a plot
   source("servers_hazards_plotting/hazard_summary_test.R")
+  
+  # Function to filter hazards summary table based on selected school
+  school_filtered <- function(data, input_school) {
+    data %>%
+      filter(SchoolName %in% c(input_school)) %>%
+      pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
+                   names_to = "variable", values_to = "value")
+  }
+  
+  # filter school to build hazard summary plot 
+  filtered_data <- reactive({
+    school_filtered(sb_hazards_test, input$school_input)
+  })
   
   # output hazard summary plot
   output$hazard_summary <- renderPlot({
@@ -66,11 +67,18 @@ server <- function(input, output){
   
   #---------------------Wildfire--------------------------------------------------
   
-  output$wildfire <- renderPlot({
-    source("servers_hazards_plotting/wildfire.R",
-           local = TRUE,
-           echo = FALSE, 
-           print.eval = FALSE)[1]})  
+  # source script that filters the hazard scores dataframe and creates a plot
+  source("servers_hazards_plotting/wildfire.R")
+  
+  # filter schools buffers to plot on wildfire map
+  filtered_data <- reactive({
+    school_filtered(sb_hazards_test, input$school_input)
+  })
+  
+  # output hazard summary plot
+  output$wildfire_map <- renderTmap({
+    generate_whp_map(whp_crop(), school_buffer(), school_point())
+  }) 
   
   #---------------------Flooding--------------------------------------------------
   
@@ -79,6 +87,7 @@ server <- function(input, output){
            local = TRUE,
            echo = FALSE, 
            print.eval = FALSE)[1]})  
+  
   #---------------------Coastal Flooding------------------------------------------
   
   output$coastal <- renderPlot({

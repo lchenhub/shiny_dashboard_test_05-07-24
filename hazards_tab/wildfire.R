@@ -1,12 +1,15 @@
 fluidRow(
   tags$style(".nav-tabs-custom {box-shadow:none;}"),
+  
+  # box for map output
   box(
     width = 6,
     
-    # Plot here
-    
-    #plotOutput('hazard_plot')
+    # wildfire map output -----
+    tmapOutput(outputId = "wildfire_map")
   ),
+  
+  # column for text
   column(
     width = 6,
     box(

@@ -5,7 +5,7 @@ required_packages <- c(
   "shiny", "shinydashboard", "shinyWidgets", "shinycssloaders",
   "palmerpenguins", "tidyverse", "dplyr", "leaflet", 
   "leaflet.extras", "leaflet.minicharts", "sf", "countrycode",
-  "plotly", "terra", "colorspace"
+  "plotly", "terra", "colorspace", "tmap", "tmaptools"
 )
 
 # install missing packages
@@ -36,8 +36,8 @@ library(countrycode)
 library(plotly)
 library(terra)
 library(colorspace)
-library(ggvis)
-
+library(tmap)
+library(tmaptools)
 
 # make sure the full cdscode can be seen
 options(scipen = 999)
@@ -47,6 +47,10 @@ options(scipen = 999)
 school_points <-  st_read("/capstone/casaschools/schools_data/California_Schools_2022-23/California_Schools_2022-23.shp") %>% 
   # filter to active schools
   filter(Status == "Active")
+
+# read in full school buffers
+schools_buffers <- st_read("/capstone/casaschools/schools_data/schools_buffer/schools_points_buffer.shp",
+                           quiet = TRUE)
 
 # Transform CRS
 school_points <- st_transform(school_points, crs = "EPSG:4326" )
@@ -73,4 +77,17 @@ hazard_labels <- c("flooding", "extreme heat", "extreme precipitation", "coastal
 
 # lollipop chart color palette
 green_red <- divergingx_hcl(n = 5, palette = "RdYlGn", rev = TRUE)
+
+# ----------------------- Wildfire -------------------------------
+# load in data
+whp_reclass <- rast("/capstone/casaschools/wildfire/intermediate_layers/whp_reclass.tif")
+
+schools_whp <- st_read("/capstone/casaschools/hazard_summary/individual_tables/schools_whp.shp") %>% 
+  as.data.frame()
+
+# define custom color palette and labels
+whp_palette <- c("white", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404")
+whp_labels <- c("non-burnable", "very low", "low", "moderate", "high", "very high")
+
+
 
