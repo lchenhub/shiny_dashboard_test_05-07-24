@@ -1,7 +1,35 @@
 server <- function(input, output){
   
   #-------------------Reactive school filtering--------------------------------
- 
+  
+  ## hazards summary -----
+  # function to filter school and pivot longer into form for lollipop chart
+  school_filtered <- function(data, input_school) {
+    data %>%
+      # filter for school
+      filter(SchoolName %in% c(input_school)) %>%
+      # pivot hazard score columns to convert data to long format
+      pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
+                   names_to = "variable", values_to = "value")
+  }
+  
+  # filter school for hazard summary plot based on user input
+  filtered_data <- reactive({
+    school_filtered(sb_hazards_test, input$school_input)
+  })
+  
+  ## mapping for flooding, coastal flooding, and wildfire
+  # 
+  school_filtered_map <- function(schools, input_school, whp_raster) {
+    # filter for school name
+    selected_school <- schools %>% 
+      filter(SchoolName %in% c(input_school))
+    # crop whp raster to selected school
+    whp_school <- crop(whp_raster, selected_school)
+      
+  }
+  
+  
   # Update hazards tab title based on the selected school
   output$school_name <- renderUI({
     # Ensure there is a selection to avoid errors
@@ -16,14 +44,6 @@ server <- function(input, output){
   
   # source script that filters the hazard scores dataframe and creates a plot
   source("servers_hazards_plotting/hazard_summary_test.R")
-  
-  # Function to filter hazards summary table based on selected school
-  school_filtered <- function(data, input_school) {
-    data %>%
-      filter(SchoolName %in% c(input_school)) %>%
-      pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
-                   names_to = "variable", values_to = "value")
-  }
   
   # filter school to build hazard summary plot 
   filtered_data <- reactive({
@@ -71,12 +91,12 @@ server <- function(input, output){
   source("servers_hazards_plotting/wildfire.R")
   
   # filter schools buffers to plot on wildfire map
-  filtered_data <- reactive({
-    school_filtered(sb_hazards_test, input$school_input)
+  filter_whp <- reactive({
+    school_filtered(schools_buffers, input$school_input)
   })
   
-  # output hazard summary plot
-  output$wildfire_map <- renderTmap({
+  # output wildfire map
+  output$wildfire_map <- renderLeaflet({
     generate_whp_map(whp_crop(), school_buffer(), school_point())
   }) 
   

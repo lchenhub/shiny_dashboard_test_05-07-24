@@ -1,4 +1,3 @@
-
 # generate hazard summary plot
 generate_hazard_summary_plot <- function(filtered_data) {
   ggplot(filtered_data, aes(y = variable, x = value)) +
