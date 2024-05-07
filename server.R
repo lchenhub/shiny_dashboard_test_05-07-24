@@ -2,37 +2,16 @@ server <- function(input, output){
   
   #-------------------Reactive school filtering--------------------------------
   
-  ## hazards summary -----
-  # function to filter school and pivot longer into form for lollipop chart
-  school_filtered <- function(data, input_school) {
-    data %>%
-      # filter for school
-      filter(SchoolName %in% c(input_school)) %>%
-      # pivot hazard score columns to convert data to long format
-      pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
-                   names_to = "variable", values_to = "value")
-  }
-  
-  # filter school for hazard summary plot based on user input
-  filtered_data <- reactive({
-    school_filtered(sb_hazards_test, input$school_input)
-  })
-  
-  ## mapping for flooding, coastal flooding, and wildfire
-  # 
-  school_filtered_map <- function(schools, input_school, whp_raster) {
-    # filter for school name
-    selected_school <- schools %>% 
+  # school filtering function
+  school_filtered <- function(schools, input_school) {
+    schools %>% 
       filter(SchoolName %in% c(input_school))
-    # crop whp raster to selected school
-    whp_school <- crop(whp_raster, selected_school)
-      
   }
   
   
   # Update hazards tab title based on the selected school
   output$school_name <- renderUI({
-    # Ensure there is a selection to avoid errors
+    # make sure there's a selection, outputting a message if there is none
     if (!is.null(input$school_input) && input$school_input != "") {
       h2(tags$strong(input$school_input))
     } else {
@@ -52,7 +31,7 @@ server <- function(input, output){
   
   # output hazard summary plot
   output$hazard_summary <- renderPlot({
-    generate_hazard_summary_plot(filtered_data())
+    hazard_summary_plot(filtered_data())
   })
   
   #--------------------Extreme Heat ---------------------------------------------
@@ -80,25 +59,27 @@ server <- function(input, output){
   
   output$precip <- renderPlot({
     source("servers_hazards_plotting/extreme_precipitation.R",
-           local = TRUE,
+           local = TRUE, 
            echo = FALSE, 
            print.eval = FALSE)[1]})  
   
   
   #---------------------Wildfire--------------------------------------------------
   
-  # source script that filters the hazard scores dataframe and creates a plot
-  source("servers_hazards_plotting/wildfire.R")
+  # school filtering function for wildfire
+  school_filtered2 <- function(schools, input_school) {
+    schools %>% filter(SchoolName %in% c(input_school))
+  }
   
-  # filter schools buffers to plot on wildfire map
-  filter_whp <- reactive({
-    school_filtered(schools_buffers, input$school_input)
+  reactiveMap <- reactive({
+    req(input$school_input)  # Ensure the school_input is available
+    wildfire_map(input$school_input)
   })
   
-  # output wildfire map
+  # Render the map in the UI
   output$wildfire_map <- renderLeaflet({
-    generate_whp_map(whp_crop(), school_buffer(), school_point())
-  }) 
+    reactiveMap()  # Use the reactive expression to update the map
+  })
   
   #---------------------Flooding--------------------------------------------------
   

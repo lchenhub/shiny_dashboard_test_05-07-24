@@ -6,7 +6,7 @@ fluidRow(
     width = 6,
     
     # wildfire map output -----
-    tmapOutput(outputId = "wildfire_map")
+    leafletOutput(outputId = "wildfire_map")
   ),
   
   # column for text

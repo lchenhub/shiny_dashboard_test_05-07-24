@@ -1,5 +1,12 @@
 # generate hazard summary plot
-generate_hazard_summary_plot <- function(filtered_data) {
+hazard_summary_plot <- function(filtered_data) {
+  
+  # pivot longer
+  filtered_data <- filtered_data %>% 
+    pivot_longer(cols = c(whp, heat_score, precip_score, flood_score, slr_score), 
+                 names_to = "variable", values_to = "value")
+  
+  # plot it
   ggplot(filtered_data, aes(y = variable, x = value)) +
     geom_segment(aes(y = variable, yend = variable, x = 0, xend = value), 
                  color = "skyblue",

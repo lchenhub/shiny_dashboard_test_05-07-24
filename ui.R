@@ -37,13 +37,7 @@ body <- dashboardBody(
                     sidebarPanel(
                       selectInput("city", "Choose a city:", choices = unique(school_points$City)),
                       uiOutput("districtMenu"),
-                      uiOutput("schoolMenu"),
-                      # school picker on welcome page, note the different inputId than the school picker in the hazards tab
-                      pickerInput(inputId = "school_input",
-                                  label = "Select school",
-                                  choices = unique(sb_hazards_test$SchoolName),
-                                  options = pickerOptions(actionsBox = TRUE),
-                                  multiple = FALSE) 
+                      uiOutput("schoolMenu")
                     ),
                     mainPanel(
                       leafletOutput("map")

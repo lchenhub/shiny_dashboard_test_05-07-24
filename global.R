@@ -5,7 +5,7 @@ required_packages <- c(
   "shiny", "shinydashboard", "shinyWidgets", "shinycssloaders",
   "palmerpenguins", "tidyverse", "dplyr", "leaflet", 
   "leaflet.extras", "leaflet.minicharts", "sf", "countrycode",
-  "plotly", "terra", "colorspace", "tmap", "tmaptools"
+  "plotly", "terra", "colorspace"
 )
 
 # install missing packages
@@ -36,8 +36,6 @@ library(countrycode)
 library(plotly)
 library(terra)
 library(colorspace)
-library(tmap)
-library(tmaptools)
 
 # make sure the full cdscode can be seen
 options(scipen = 999)
@@ -81,9 +79,6 @@ green_red <- divergingx_hcl(n = 5, palette = "RdYlGn", rev = TRUE)
 # ----------------------- Wildfire -------------------------------
 # load in data
 whp_reclass <- rast("/capstone/casaschools/wildfire/intermediate_layers/whp_reclass.tif")
-
-schools_whp <- st_read("/capstone/casaschools/hazard_summary/individual_tables/schools_whp.shp") %>% 
-  as.data.frame()
 
 # define custom color palette and labels
 whp_palette <- c("white", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404")
