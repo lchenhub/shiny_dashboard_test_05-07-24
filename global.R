@@ -98,8 +98,8 @@ green_red <- divergingx_hcl(n = 5, palette = "RdYlGn", rev = TRUE)
 whp_reclass <- rast("/capstone/casaschools/wildfire/intermediate_layers/whp_reclass.tif")
 
 # define custom color palette and labels
-whp_palette <- c("white", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404")
-whp_labels <- c("non-burnable", "very low", "low", "moderate", "high", "very high")
+# whp_palette <- c("white", "#fee391", "#fec44f", "#fe9929", "#d95f0e", "#993404")
+# whp_labels <- c("non-burnable", "very low", "low", "moderate", "high", "very high")
 
 
 

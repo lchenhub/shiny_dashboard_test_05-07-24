@@ -1,17 +1,18 @@
 # Define the function that will create and return the Leaflet map object
-wildfire_map <- function(input_school) {
+wildfire_map <- function(buffers_filtered) {
   
-  # Process the data
-  # Filter for one school (can be parameterized based on 'input')
-  school_buffer <- school_filtered2(schools_buffers, input_school) %>% 
-    st_transform(crs = 4326)
+  # transform filtered buffer CRS to WGS 1984
+  school_buffer <- buffers_filtered
   
-  # Calculate the centroid of the school buffer and convert to WGS 1984
-  school_point <- st_centroid(school_buffer) %>% 
-    st_transform(crs = 4326)
+  # calculate the centroid of the school buffer and transform CRS to WGS 1984
+  school_point <- st_centroid(school_buffer)
   
-  # Select the wildfire hazard potential cells that overlap
+  # select the wildfire hazard potential cells that overlap
   whp_school <- crop(whp_reclass, school_buffer)
+  
+  # change the CRS of the buffer and school point to WGS 1984 for mapping
+  school_buffer <- st_transform(school_buffer, crs = 4326)
+  school_point <- st_transform(school_point, crs = 4326)
   
   # Define color palette and labels for wildfire hazard potential
   labels <- c("non-burnable", "very low", "low", "moderate", "high", "very high", "")
@@ -21,19 +22,18 @@ wildfire_map <- function(input_school) {
                              na.color = "transparent")
   
   
-    
-    # create wildfire map
-    wildfire_map <- leaflet() %>% 
-      addProviderTiles(providers$Esri.WorldTopoMap) %>% 
-      addRasterImage(whp_school, colors = whp_palette, 
-                     opacity = .7, group = "wildfire hazard potential") %>% 
-      addPolygons(data = school_buffer, color = "black", fill = FALSE, 
-                  weight = 2, group = "school community area") %>% 
-      addCircleMarkers(data = school_point, color = "blue", stroke = FALSE, 
-                       weight = 3, radius = 5, fillOpacity = 1, group = "school point") %>% 
-      addLegend("bottomright", colors = whp_colors, labels = labels, 
-                title = "wildfire hazard potential", opacity = 0.5)
-    
-    return(wildfire_map)
-
+  
+  # create wildfire map
+  leaflet() %>% 
+    addProviderTiles(providers$Esri.WorldTopoMap) %>% 
+    addRasterImage(whp_school, colors = whp_palette, 
+                   opacity = .7, group = "wildfire hazard potential") %>% 
+    addPolygons(data = school_buffer, color = "black", fill = FALSE, 
+                weight = 2, group = "school community area") %>% 
+    addCircleMarkers(data = school_point, color = "blue", stroke = FALSE, 
+                     weight = 3, radius = 5, fillOpacity = 1, group = "school point") %>% 
+    addLegend("bottomright", colors = whp_colors, labels = labels, 
+              title = "wildfire hazard potential", opacity = 0.5)
+  
+  
 }
