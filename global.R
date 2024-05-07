@@ -4,7 +4,7 @@
 required_packages <- c(
   "shiny", "shinydashboard", "shinyWidgets", "shinycssloaders", "tidyverse",
   "leaflet", "leaflet.extras", "leaflet.minicharts", "sf", "countrycode",
-  "plotly", "terra", "colorspace", "RColorBrewer"
+  "plotly", "terra", "colorspace", "RColorBrewer", "gridExtra"
 )
 
 # install missing packages
@@ -34,6 +34,7 @@ library(plotly)
 library(terra)
 library(colorspace)
 library(RColorBrewer)
+library(gridExtra)
 
 
 # make sure the full cdscode can be seen
@@ -44,6 +45,10 @@ options(scipen = 999)
 school_points <-  st_read("/capstone/casaschools/schools_data/California_Schools_2022-23/California_Schools_2022-23.shp") %>% 
   # filter to active schools
   filter(Status == "Active")
+
+# read in full school buffers
+schools_buffers <- st_read("/capstone/casaschools/schools_data/schools_buffer/schools_points_buffer.shp",
+                           quiet = TRUE)
 
 # Transform CRS
 school_points <- st_transform(school_points, crs = "EPSG:4326" )
@@ -81,6 +86,10 @@ extreme_heat <- read_csv("/capstone/casaschools/shiny_dashboard/data/extreme_hea
 
 extreme_heat1 <- extreme_heat %>%
   filter(CDSCode == 42767864231726)
+#---------------------------- Precipitation ----------------------------
+extreme_precip <- read_csv("/capstone/casaschools/shiny_dashboard/data/precipitation/test_precip_file.csv") 
+
+extreme_precip1 <- extreme_precip %>% filter(CDSCode == 42767864231726)
 
 # ----------------------- Hazard summary -------------------------------
 # load in data

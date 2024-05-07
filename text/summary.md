@@ -1,11 +1,11 @@
-### What does this map tell us?
+### What does this plot tell us?
 <br>
-<span style="font-size:18px;">The Dos Pueblos Senior High will see an increase in extreme heat days in the upcoming years.</span>
+<span style="font-size:18px;"></span>
 <br>
 
-### How is wildfire hazard potential measured?
+### What is the hazard summary and total score?
 
 <br>
-<span style="font-size:18px;">Extreme heat is measured as days where the daily maximum temperature is above the 98th percentile of observed historical temperatures.</span>
+<span style="font-size:18px;"></span>
 
 Source:

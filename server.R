@@ -57,11 +57,23 @@ server <- function(input, output){
   
   #--------------------Extreme Precipitation-------------------------------------
   
-  output$precip <- renderPlot({
-    source("servers_hazards_plotting/extreme_precipitation.R",
-           local = TRUE, 
-           echo = FALSE, 
-           print.eval = FALSE)[1]})  
+  output$extreme_precip1 <- renderPlotly({
+    # Develop plot 
+    heat <- ggplot(data = extreme_precip1,
+                   aes(x = year, y = total, color = scenario)) +
+      geom_line() +
+      theme_classic() +
+      labs(x = "Year",
+           y = "Number of Extreme Precipitation Days") +
+      theme(legend.position = "top",
+            legend.title = element_blank())
+    
+    ggplotly(heat) %>%
+      layout(legend = list(orientation = "h", y = 1.1,
+                           title = list(text = 'Scenarios')),
+             margin = list( t = 60))
+    
+  })
   
   
   #---------------------Wildfire--------------------------------------------------
@@ -84,7 +96,7 @@ server <- function(input, output){
            echo = FALSE, 
            print.eval = FALSE)[1]})  
   
-  #---------------------Coastal Flooding------------------------------------------
+  #---------------------Coastal Flooding----------------------------------------
   
   output$coastal <- renderPlot({
     source("servers_hazards_plotting/coastal_inundation.R",
@@ -94,7 +106,7 @@ server <- function(input, output){
   
   
   
-  # build leaflet map
+  #---------------------Homepage leaflet map------------------------------------
   
   
   # output$map <- renderLeaflet({
@@ -106,27 +118,46 @@ server <- function(input, output){
   # })
   # Reactive output for district based on selected city
   
-  #Here, we will create the output variables that feed into outputs used in the ui.R file
+  #Create reactive map that filters for City, School District, and Schools
+  
+  # City selection UI
+  output$cityMenu <- renderUI({
+    selectInput("city", "Choose a city:", choices = unique(school_points$City))
+  })
+  
+  # District selection UI based on selected city
   output$districtMenu <- renderUI({
-    req(input$city)
-    selectInput("district", "Choose a district:", 
-                choices = unique(school_points$DistrictNa[school_points$City== input$city]))
+    req(input$city)  # requires city input
+    valid_districts <- unique(school_points$DistrictNa[school_points$City == input$city])
+    selectInput("district", "Choose a district:", choices = valid_districts)
   })
   
-  # Reactive output for school based on selected district
+  # School selection UI based on selected district
   output$schoolMenu <- renderUI({
-    req(input$district)
-    selectInput("school", "Choose a school:", 
-                choices = unique(school_points$SchoolName[school_points$DistrictNa == input$district]))
+    req(input$district)  #requires district input
+    valid_schools <- unique(school_points$SchoolName[school_points$DistrictNa == input$district & school_points$City == input$city])
+    selectInput("school", "Choose a school:", choices = valid_schools)
   })
   
-  # Render Leaflet map
+  # Render Leaflet map for the selected school
   output$map <- renderLeaflet({
-    req(input$school)
-    selectedSchool <- school_points[school_points$SchoolName == input$school, ]
-    leaflet(data = selectedSchool) %>%
-      addTiles() %>%
-      addMarkers(~Longitude, ~Latitude, popup = ~SchoolName)
+    req(input$school, input$city, input$district)  #require all selections
+    # Filter schools based on both district and city
+    selectedSchool <- school_points[
+      school_points$SchoolName == input$school &
+        school_points$DistrictNa == input$district &
+        school_points$City == input$city, 
+    ]
+    
+    if (nrow(selectedSchool) == 1) {  #match to only one school or return empty map
+      leaflet(data = selectedSchool) %>%
+        addTiles() %>%
+        addMarkers(~Longitude, ~Latitude, popup = ~MarkerString)
+    } else {
+      leaflet() %>%  #empty map return
+        addTiles() %>%
+        addPopups()
+    }
   })
-}
+} 
  

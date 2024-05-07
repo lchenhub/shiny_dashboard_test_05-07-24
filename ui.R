@@ -1,8 +1,8 @@
 # -------- dashboard Header--------------------------
 header <- dashboardHeader(
   
-  title = "CASA Schools Climate Hazards",
-  titleWidth = 400
+  title = "CASA Schools",
+  titleWidth = 188
 ) #END dashboardHeader
 
 # -------- dashboard Sidebar--------------------------
@@ -35,14 +35,14 @@ body <- dashboardBody(
                   h3(tags$strong("Getting Started")),
                   sidebarLayout(
                     sidebarPanel(
-                      selectInput("city", "Choose a city:", choices = unique(school_points$City)),
+                      uiOutput("cityMenu"),
                       uiOutput("districtMenu"),
                       uiOutput("schoolMenu")
                     ),
                     mainPanel(
                       leafletOutput("map")
-              )
-            )))
+                    )
+                  )))
     ),
     
     
@@ -62,6 +62,7 @@ body <- dashboardBody(
                                             label = "Select school",
                                             choices = unique(sb_hazards_test$SchoolName),
                                             options = pickerOptions(actionsBox = TRUE),
+                                            selected = "Dos Pueblos Senior High", 
                                             multiple = FALSE)
                             )
                 ), # END TITLE AND PICKER INPUT
