@@ -3,7 +3,7 @@ fluidRow(
   
   # box for map output
   box(
-    width = 6,
+    width = 8,
     
     # wildfire map output -----
     leafletOutput(outputId = "wildfire_map")
@@ -11,7 +11,7 @@ fluidRow(
   
   # column for text
   column(
-    width = 6,
+    width = 4,
     box(
       width = NULL,
       

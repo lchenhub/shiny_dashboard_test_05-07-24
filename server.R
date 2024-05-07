@@ -25,13 +25,13 @@ server <- function(input, output){
   source("servers_hazards_plotting/hazard_summary_test.R")
   
   # filter school to build hazard summary plot 
-  filtered_data <- reactive({
+  hazards_filtered <- reactive({
     school_filtered(sb_hazards_test, input$school_input)
   })
   
   # output hazard summary plot
   output$hazard_summary <- renderPlot({
-    hazard_summary_plot(filtered_data())
+    hazard_summary_plot(hazards_filtered())
   })
   
   #--------------------Extreme Heat ---------------------------------------------
@@ -66,19 +66,14 @@ server <- function(input, output){
   
   #---------------------Wildfire--------------------------------------------------
   
-  # school filtering function for wildfire
-  school_filtered2 <- function(schools, input_school) {
-    schools %>% filter(SchoolName %in% c(input_school))
-  }
-  
-  reactiveMap <- reactive({
-    req(input$school_input)  # Ensure the school_input is available
-    wildfire_map(input$school_input)
+  # filter school to build wildfire 
+  buffers_filtered <- reactive({
+    school_filtered(schools_buffers, input$school_input)
   })
   
   # Render the map in the UI
   output$wildfire_map <- renderLeaflet({
-    reactiveMap()  # Use the reactive expression to update the map
+    wildfire_map(buffers_filtered())
   })
   
   #---------------------Flooding--------------------------------------------------
