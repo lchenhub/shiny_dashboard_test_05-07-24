@@ -2,10 +2,9 @@
 ## download packages if they're not already installed
 # list of required packages
 required_packages <- c(
-  "shiny", "shinydashboard", "shinyWidgets", "shinycssloaders",
-  "palmerpenguins", "tidyverse", "dplyr", "leaflet", 
-  "leaflet.extras", "leaflet.minicharts", "sf", "countrycode",
-  "plotly", "terra", "colorspace"
+  "shiny", "shinydashboard", "shinyWidgets", "shinycssloaders", "tidyverse",
+  "leaflet", "leaflet.extras", "leaflet.minicharts", "sf", "countrycode",
+  "plotly", "terra", "colorspace", "RColorBrewer"
 )
 
 # install missing packages
@@ -25,9 +24,7 @@ library(shiny)
 library(shinydashboard)
 library(shinyWidgets)
 library(shinycssloaders)
-library(palmerpenguins)
 library(tidyverse)
-library(dplyr)
 library(leaflet)
 library(leaflet.extras)
 library(leaflet.minicharts)
@@ -36,6 +33,8 @@ library(countrycode)
 library(plotly)
 library(terra)
 library(colorspace)
+library(RColorBrewer)
+
 
 # make sure the full cdscode can be seen
 options(scipen = 999)
@@ -46,12 +45,30 @@ school_points <-  st_read("/capstone/casaschools/schools_data/California_Schools
   # filter to active schools
   filter(Status == "Active")
 
-# read in full school buffers
-schools_buffers <- st_read("/capstone/casaschools/schools_data/schools_buffer/schools_points_buffer.shp",
-                           quiet = TRUE)
-
 # Transform CRS
 school_points <- st_transform(school_points, crs = "EPSG:4326" )
+
+#only filter for Active schools
+
+school_points <- school_points %>% filter(Status == "Active")
+
+school_points <- school_points %>% mutate(MarkerString = paste(
+  SchoolName,", School Type: ",
+  SchoolType,", Street Address: ",
+  Street,", Enrollment Total: ",
+  EnrollTota,", % of African American Students: ",
+  AApct,", % of American Indian Students: ",
+  AIpct, ", % of Asian Students: ",
+  ASpct,", % of Filipino Students: ",
+  FIpct, ", % of Hispanic Students: ",
+  HIpct, ", % of Pacific Islander Students: ",
+  PIpct, ", % of White Students: ",
+  WHpct, ", % of Multi-Racial Students: ",
+  MRpct, ", % of English Learners: ",
+  ELpct, ", % of Socioeconimically Disadvantaged Students: ",
+  SEDpct, ", School Locale: ",
+  Locale))
+
 # Drop geometry
 school_points_rm <- school_points %>% st_drop_geometry()
 
