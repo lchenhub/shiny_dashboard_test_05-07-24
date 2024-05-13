@@ -111,4 +111,10 @@ whp_reclass <- rast("/capstone/casaschools/wildfire/intermediate_layers/whp_recl
 # whp_labels <- c("non-burnable", "very low", "low", "moderate", "high", "very high")
 
 
+# ----------------------- Flooding -------------------------------
+# load in data
+FEMA_reclass <- st_read("/capstone/casaschools/flooding/intermediate_layers/fema_high_union.shp")
+
+# make sure the crs are the same (WGS 84)
+FEMA_reclass <- st_transform(FEMA_reclass, st_crs(schools_buffers))
 
