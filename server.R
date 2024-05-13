@@ -90,11 +90,15 @@ server <- function(input, output){
   
   #---------------------Flooding--------------------------------------------------
   
-  output$flooding <- renderPlot({
-    source("servers_hazards_plotting/flooding.R",
-           local = TRUE,
-           echo = FALSE, 
-           print.eval = FALSE)[1]})  
+  # filter school to build flooding 
+  buffers_filtered <- reactive({
+    school_filtered(schools_buffers, input$school_input)
+  })
+  
+  # Render the map in the UI
+  output$flooding_map <- renderLeaflet({
+    flooding_map(buffers_filtered())
+  })
   
   #---------------------Coastal Flooding----------------------------------------
   
