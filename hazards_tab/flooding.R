@@ -11,7 +11,7 @@ fluidRow(
     
     #plotOutput('hazard_plot')
   column(
-    width = 6,
+    width = 4,
     box(
       width = NULL,
       

@@ -91,13 +91,13 @@ server <- function(input, output){
   #---------------------Flooding--------------------------------------------------
   
   # filter school to build flooding 
-  buffers_filtered <- reactive({
+  buffers_filtered_flood <- reactive({
     school_filtered(schools_buffers, input$school_input)
   })
   
   # Render the map in the UI
   output$flooding_map <- renderLeaflet({
-    flooding_map(buffers_filtered())
+    flooding_map(buffers_filtered_flood())
   })
   
   #---------------------Coastal Flooding----------------------------------------
